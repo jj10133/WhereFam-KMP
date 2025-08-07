@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -32,6 +33,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            api(fileTree(mapOf("dir" to "libs", "include" to listOf("bare-kit/classes.jar"))))
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -60,6 +63,13 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
+    sourceSets {
+        getByName("main") {
+            jniLibs.srcDirs("src/androidMain/addons", "libs/bare-kit/jni")
+        }
+    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -75,6 +85,53 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
+
+val nodeModulesRoot = rootProject.projectDir
+
+tasks.register<Exec>("bareLink") {
+    group = "bare-runtime"
+    description = "Links bare-kit native libraries into the Android project."
+    workingDir = nodeModulesRoot
+    commandLine(
+        "node_modules/.bin/bare-link",
+        "--preset", "android",
+        "--needs", "libbare-kit.so",
+        "--out", "composeApp/src/androidMain/addons" // Path relative to workingDir (nodeModulesRoot)
+    )
+}
+
+tasks.register<Exec>("barePackApp") {
+    group = "bare-runtime"
+    description = "Packs the main bare-runtime app bundle."
+    workingDir = nodeModulesRoot
+    commandLine(
+        "node_modules/.bin/bare-pack",
+        "--preset", "android",
+        "--out", "composeApp/src/androidMain/assets/app.bundle",
+        "composeApp/src/androidMain/js/app.js"
+    )
+}
+
+tasks.register<Exec>("barePackPush") {
+    group = "bare-runtime"
+    description = "Packs the bare-runtime push bundle."
+    workingDir = nodeModulesRoot
+    commandLine(
+        "node_modules/.bin/bare-pack",
+        "--preset", "android",
+        "--out", "composeApp/src/androidMain/assets/push.bundle",
+        "composeApp/src/androidMain/js/push.js"
+    )
+}
+
+tasks.register("barePack") {
+    group = "bare-runtime"
+    description = "Runs all bare-runtime packing tasks."
+    dependsOn(tasks.named("barePackApp"), tasks.named("barePackPush"))
+}
+
+// Ensure bare-runtime tasks run before the Android preBuild task for this module
+tasks.named("preBuild").dependsOn(tasks.named("bareLink"), tasks.named("barePack"))
 
 dependencies {
     debugImplementation(compose.uiTooling)
