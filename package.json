@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "bare-link": "^1.4.0",
+    "bare-pack": "^1.4.0"
+  }
+}
