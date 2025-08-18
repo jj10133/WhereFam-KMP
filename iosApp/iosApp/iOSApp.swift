@@ -1,5 +1,6 @@
 import SwiftUI
 import BareKit
+import ComposeApp
 
 @main
 struct iOSApp: App {
@@ -7,6 +8,10 @@ struct iOSApp: App {
     private var worklet = Worklet()
     
     @Environment(\.scenePhase) private var scenePhase
+    
+    init() {
+        DependenciesProviderHelper().doInitKoin()
+    }
     
     var body: some Scene {
         WindowGroup {
