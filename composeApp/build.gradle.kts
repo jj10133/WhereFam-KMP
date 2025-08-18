@@ -35,6 +35,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             api(fileTree(mapOf("dir" to "libs", "include" to listOf("bare-kit/classes.jar"))))
 
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -45,6 +48,10 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            api(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
