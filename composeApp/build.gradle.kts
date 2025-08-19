@@ -57,6 +57,8 @@ kotlin {
 
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
             implementation("co.touchlab:kermit:2.0.4")
+
+            implementation(libs.maplibre.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

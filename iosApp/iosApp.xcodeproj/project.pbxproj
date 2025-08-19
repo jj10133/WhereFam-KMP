@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F33032922E550E3100F8E093 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = F33032912E550E3100F8E093 /* MapLibre */; };
 		F38D4F942E53BEF800FA2642 /* BareKit in Frameworks */ = {isa = PBXBuildFile; productRef = F38D4F932E53BEF800FA2642 /* BareKit */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F33032922E550E3100F8E093 /* MapLibre in Frameworks */,
 				F38D4F942E53BEF800FA2642 /* BareKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +93,7 @@
 			name = iosApp;
 			packageProductDependencies = (
 				F38D4F932E53BEF800FA2642 /* BareKit */,
+				F33032912E550E3100F8E093 /* MapLibre */,
 			);
 			productName = iosApp;
 			productReference = B9DA97B12DC1472C00A4DA20 /* wherefam_kmp.app */;
@@ -122,6 +125,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F38D4F922E53BEF800FA2642 /* XCRemoteSwiftPackageReference "bare-kit-swift" */,
+				F33032902E550E3100F8E093 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9DA97B22DC1472C00A4DA20 /* Products */;
@@ -305,7 +309,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = D76L2A4V36;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -338,7 +342,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = "${TEAM_ID}";
+				DEVELOPMENT_TEAM = D76L2A4V36;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -385,6 +389,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F33032902E550E3100F8E093 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution.git";
+			requirement = {
+				kind = exactVersion;
+				version = 6.17.1;
+			};
+		};
 		F38D4F922E53BEF800FA2642 /* XCRemoteSwiftPackageReference "bare-kit-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/holepunchto/bare-kit-swift";
@@ -396,6 +408,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F33032912E550E3100F8E093 /* MapLibre */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F33032902E550E3100F8E093 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = MapLibre;
+		};
 		F38D4F932E53BEF800FA2642 /* BareKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F38D4F922E53BEF800FA2642 /* XCRemoteSwiftPackageReference "bare-kit-swift" */;
