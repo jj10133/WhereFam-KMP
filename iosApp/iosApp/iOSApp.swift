@@ -5,7 +5,8 @@ import ComposeApp
 @main
 struct iOSApp: App {
     
-    private var worklet = Worklet()
+    @StateObject private var worker = Worker()
+    @StateObject private var ipcViewModel = IPCViewModel()
     
     @Environment(\.scenePhase) private var scenePhase
     
@@ -17,18 +18,22 @@ struct iOSApp: App {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    worklet.start(name: "app", ofType: "bundle")
+                    worker.start()
+                    ipcViewModel.configure(with: worker.ipc)
+                    Task(priority: .background) {
+                        await ipcViewModel.readFromIPC()
+                    }
                 }
                 .onDisappear {
-                    worklet.terminate()
+                    worker.terminate()
                 }
         }
         .onChange(of: scenePhase) { oldValue, newValue in
             switch newValue {
             case .background:
-                worklet.suspend()
+                worker.suspend()
             case .active:
-                worklet.resume()
+                worker.resume()
             default:
                 break
             }
