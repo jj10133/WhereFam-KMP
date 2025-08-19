@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.skie)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -52,6 +54,9 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             api(libs.koin.core)
+
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+            implementation("co.touchlab:kermit:2.0.4")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
