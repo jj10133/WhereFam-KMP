@@ -1,6 +1,5 @@
-package com.wherefam.kmp.wherefam_kmp
+package com.wherefam.kmp.wherefam_kmp.di
 
-import com.wherefam.kmp.wherefam_kmp.di.sharedModule
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ObjCClass
 import kotlinx.cinterop.getOriginalKotlinClass
@@ -8,14 +7,9 @@ import org.koin.core.Koin
 import org.koin.core.context.startKoin
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.Qualifier
-import org.koin.dsl.module
 
 class DependenciesProviderHelper {
     fun initKoin() {
-        val iosModule = module {
-
-        }
-
         val instance = startKoin {
             modules(sharedModule, iosModule)
         }
