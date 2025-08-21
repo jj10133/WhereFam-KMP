@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.remember
 import androidx.lifecycle.lifecycleScope
 import com.wherefam.kmp.wherefam_kmp.data.IPCMessageConsumer
 import com.wherefam.kmp.wherefam_kmp.processing.GenericMessageProcessor
+import com.wherefam.kmp.wherefam_kmp.ui.App
 import org.koin.android.ext.android.inject
 import to.holepunch.bare.kit.IPC
 import to.holepunch.bare.kit.Worklet
@@ -39,7 +41,11 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            App()
+            App(
+                prefs = remember {
+                    createDataStore(applicationContext)
+                }
+            )
         }
     }
 
