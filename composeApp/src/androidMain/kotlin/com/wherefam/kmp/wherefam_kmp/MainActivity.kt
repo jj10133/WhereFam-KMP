@@ -1,15 +1,26 @@
 package com.wherefam.kmp.wherefam_kmp
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.remember
+import androidx.annotation.RequiresApi
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.rememberNavController
 import com.wherefam.kmp.wherefam_kmp.data.IPCMessageConsumer
+import com.wherefam.kmp.wherefam_kmp.managers.LocationTrackerService
 import com.wherefam.kmp.wherefam_kmp.processing.GenericMessageProcessor
-import com.wherefam.kmp.wherefam_kmp.ui.App
+import com.wherefam.kmp.wherefam_kmp.ui.onboarding.SplashViewModel
+import com.wherefam.kmp.wherefam_kmp.ui.root.ContentView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import to.holepunch.bare.kit.IPC
 import to.holepunch.bare.kit.Worklet
 
@@ -19,6 +30,7 @@ class MainActivity : ComponentActivity() {
     private var ipc: IPC? = null
     private val messageProcessor: GenericMessageProcessor by inject()
     private var ipcMessageConsumer: IPCMessageConsumer? = null
+    private val splashViewModel: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -40,8 +52,24 @@ class MainActivity : ComponentActivity() {
             throw RuntimeException( e)
         }
 
-        setContent {
-            App()
+        val channel = NotificationChannel(
+            LocationTrackerService.Companion.LOCATION_CHANNEL,
+            "Location",
+            NotificationManager.IMPORTANCE_LOW
+        )
+
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                setContent {
+                    val screen by splashViewModel.startDestination
+                    val navController = rememberNavController()
+
+                    ContentView(navController, screen)
+                }
+            }
         }
     }
 
