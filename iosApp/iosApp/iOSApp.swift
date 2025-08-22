@@ -5,8 +5,8 @@ import ComposeApp
 @main
 struct iOSApp: App {
     
-    @StateObject private var worker = Worker()
-    @StateObject private var ipcViewModel = IPCViewModel()
+    private var worker = Worker()
+    private var ipcViewModel = IPCViewModel()
     
     @Environment(\.scenePhase) private var scenePhase
     
