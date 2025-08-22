@@ -12,19 +12,21 @@ import BareKit
 import ComposeApp
 
 
-class IPCViewModel: ObservableObject {
-    var ipc: IPC?
-    
-    private var genericProcessor: GenericMessageProcessor = get()
-    
-    
+class IPCMessageConsumer {
+    private var ipc: IPC?
     private var ipcBuffer = ""
+    
+    private var messageProcessor: MessageProcessor
+    
+    init(messageProcessor: MessageProcessor) {
+        self.messageProcessor = messageProcessor
+    }
     
     func configure(with ipc: IPC?) {
         self.ipc = ipc
     }
     
-    func readFromIPC() async {
+    func startConsuming() async {
         guard let ipc = self.ipc else {
             print("Error: IPC object is nil, cannot read.")
             return
@@ -33,7 +35,7 @@ class IPCViewModel: ObservableObject {
         do {
             for try await chunk in ipc {
                 if let chunkString = String(data: chunk, encoding: .utf8) {
-                    try await genericProcessor.processMessage(message: chunkString)
+                    try await messageProcessor.processMessage(message: chunkString)
                 }
             }
         } catch {

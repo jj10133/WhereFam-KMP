@@ -1,7 +1,7 @@
 import Foundation
 import BareKit
 
-class Worker: ObservableObject {
+class Worker {
     private var worklet: Worklet?
     public var ipc: IPC?
     
