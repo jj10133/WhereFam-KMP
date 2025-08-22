@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F33032922E550E3100F8E093 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = F33032912E550E3100F8E093 /* MapLibre */; };
 		F38D4F942E53BEF800FA2642 /* BareKit in Frameworks */ = {isa = PBXBuildFile; productRef = F38D4F932E53BEF800FA2642 /* BareKit */; };
+		F3CEF85C2E58318E00F1CDE4 /* ConcentricOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = F3CEF85B2E58318E00F1CDE4 /* ConcentricOnboarding */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 			files = (
 				F33032922E550E3100F8E093 /* MapLibre in Frameworks */,
 				F38D4F942E53BEF800FA2642 /* BareKit in Frameworks */,
+				F3CEF85C2E58318E00F1CDE4 /* ConcentricOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +96,7 @@
 			packageProductDependencies = (
 				F38D4F932E53BEF800FA2642 /* BareKit */,
 				F33032912E550E3100F8E093 /* MapLibre */,
+				F3CEF85B2E58318E00F1CDE4 /* ConcentricOnboarding */,
 			);
 			productName = iosApp;
 			productReference = B9DA97B12DC1472C00A4DA20 /* wherefam_kmp.app */;
@@ -126,6 +129,7 @@
 			packageReferences = (
 				F38D4F922E53BEF800FA2642 /* XCRemoteSwiftPackageReference "bare-kit-swift" */,
 				F33032902E550E3100F8E093 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+				F3CEF85A2E58318E00F1CDE4 /* XCRemoteSwiftPackageReference "ConcentricOnboarding" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9DA97B22DC1472C00A4DA20 /* Products */;
@@ -309,7 +313,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = D76L2A4V36;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -342,7 +346,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
-				DEVELOPMENT_TEAM = D76L2A4V36;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -405,6 +409,14 @@
 				kind = branch;
 			};
 		};
+		F3CEF85A2E58318E00F1CDE4 /* XCRemoteSwiftPackageReference "ConcentricOnboarding" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/ConcentricOnboarding";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -417,6 +429,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F38D4F922E53BEF800FA2642 /* XCRemoteSwiftPackageReference "bare-kit-swift" */;
 			productName = BareKit;
+		};
+		F3CEF85B2E58318E00F1CDE4 /* ConcentricOnboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3CEF85A2E58318E00F1CDE4 /* XCRemoteSwiftPackageReference "ConcentricOnboarding" */;
+			productName = ConcentricOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
