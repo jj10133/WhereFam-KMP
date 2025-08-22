@@ -40,6 +40,9 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
 
+            implementation(libs.datastore.preferences)
+            implementation("com.google.zxing:core:3.5.3")
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
