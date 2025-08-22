@@ -1,18 +1,17 @@
 package com.wherefam.kmp.wherefam_kmp.di
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import com.wherefam.kmp.wherefam_kmp.DATA_STORE_FILE_NAME
-import com.wherefam.kmp.wherefam_kmp.createDataStore
+import com.wherefam.kmp.wherefam_kmp.data.DataStoreRepository
+import com.wherefam.kmp.wherefam_kmp.managers.LocationManager
+import com.wherefam.kmp.wherefam_kmp.ui.onboarding.SplashViewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val androidModule = module {
-    single { dataStore(get()) }
+    single { LocationManager(get()) }
+    single { DataStoreRepository(get()) }
+
 }
 
-fun dataStore(context: Context): DataStore<Preferences> {
-    return createDataStore {
-        context.filesDir.resolve(DATA_STORE_FILE_NAME).absolutePath
-    }
+val viewModelModule = module {
+    viewModel { SplashViewModel(get()) }
 }
