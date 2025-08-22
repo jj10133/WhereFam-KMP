@@ -15,7 +15,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App(prefs : DataStore<Preferences>) {
+fun App() {
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(

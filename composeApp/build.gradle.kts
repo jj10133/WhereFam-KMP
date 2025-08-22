@@ -62,8 +62,6 @@ kotlin {
 
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.0-beta05")
 
-            api(libs.datastore)
-            api(libs.datastore.preferences)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
