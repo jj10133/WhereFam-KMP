@@ -11,7 +11,7 @@ import org.koin.core.qualifier.Qualifier
 class DependenciesProviderHelper {
     fun initKoin() {
         val instance = startKoin {
-            modules(sharedModule, iosModule)
+            modules(sharedModule, iosModule, targetModule)
         }
 
         koin = instance.koin
