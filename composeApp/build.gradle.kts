@@ -10,6 +10,8 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.skie)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.androidx.room)
 }
 
 kotlin {
@@ -63,6 +65,9 @@ kotlin {
             implementation("co.touchlab:kermit:2.0.4")
 
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.0-beta05")
+
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
 
         }
         commonTest.dependencies {
@@ -152,7 +157,15 @@ tasks.register("barePack") {
 // Ensure bare-runtime tasks run before the Android preBuild task for this module
 tasks.named("preBuild").dependsOn(tasks.named("bareLink"), tasks.named("barePack"))
 
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
     debugImplementation(compose.uiTooling)
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
 }
 

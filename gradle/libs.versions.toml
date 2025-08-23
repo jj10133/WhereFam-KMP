@@ -14,9 +14,11 @@ junit = "4.13.2"
 kotlin = "2.2.0"
 koin = "4.0.0"
 skie = "0.10.5"
-maplibre-compose = "0.10.4"
 datastore = "1.1.7"
 ramani = "0.8.2"
+room = "2.7.2"
+sqlite = "2.5.2"
+ksp = "2.2.0-2.0.2"
 
 [libraries]
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
@@ -40,6 +42,10 @@ datastore = { module = "andoridx.datastore:datastore", version.ref = "datastore"
 datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 ramani = { module = "org.ramani-maps:ramani-maplibre", version.ref = "ramani" }
 
+androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -48,3 +54,5 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 skie = { id="co.touchlab.skie", version.ref = "skie" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "2.0.0" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+androidx-room = { id = "androidx.room", version.ref = "room" }
