@@ -42,6 +42,7 @@ kotlin {
 
             implementation(libs.datastore.preferences)
             implementation("com.google.zxing:core:3.5.3")
+            implementation(libs.ramani)
 
         }
         commonMain.dependencies {
@@ -60,8 +61,6 @@ kotlin {
 
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
             implementation("co.touchlab:kermit:2.0.4")
-
-            implementation(libs.maplibre.compose)
 
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.0-beta05")
 
