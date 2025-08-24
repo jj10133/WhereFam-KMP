@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.wherefam.kmp.wherefam_kmp.data.IPCMessageConsumer
+import com.wherefam.kmp.wherefam_kmp.data.IPCProvider
 import com.wherefam.kmp.wherefam_kmp.managers.LocationTrackerService
 import com.wherefam.kmp.wherefam_kmp.processing.GenericMessageProcessor
 import com.wherefam.kmp.wherefam_kmp.ui.onboarding.SplashViewModel
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
         try {
             worklet!!.start("/app.bundle", assets.open("app.bundle"), null)
             ipc = IPC(worklet)
-
+            IPCProvider.ipc = ipc
             ipcMessageConsumer = IPCMessageConsumer(ipc!!, messageProcessor)
             ipcMessageConsumer?.lifecycleScope = lifecycleScope
             ipcMessageConsumer?.startConsuming()
