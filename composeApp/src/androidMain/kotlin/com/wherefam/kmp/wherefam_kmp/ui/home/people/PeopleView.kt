@@ -79,7 +79,7 @@ fun PeopleView(peopleViewModel: PeopleViewModel = koinViewModel()) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Contact ${person.id} - ${person.name}",
+                                text = person.name,
                                 fontSize = 18.sp,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
