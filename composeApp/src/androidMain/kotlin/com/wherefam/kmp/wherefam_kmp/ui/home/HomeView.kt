@@ -24,6 +24,8 @@ import org.maplibre.android.maps.Style
 import org.ramani.compose.CameraPosition
 import org.ramani.compose.LocationStyling
 import org.ramani.compose.MapLibre
+import org.ramani.compose.Symbol
+import kotlin.collections.forEach
 import kotlin.jvm.java
 
 
@@ -106,7 +108,7 @@ fun HomeView(
                     renderMode = renderMode.value
                 ) {
                     peers.forEach { peer ->
-                        if (peer.latitude != null && peer.longitude != null) {
+                        if (peer.latitude != 0.0 && peer.longitude != 0.0) {
                             Symbol(
                                 center = LatLng(peer.latitude, peer.longitude),
                                 size = 5F,
