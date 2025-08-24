@@ -1,21 +1,68 @@
-const { IPC } = BareKit;
+// src/index.js
+const ipc = require('./ipc')
+const hyperbeeManager = require('./hyperbee-manager')
+const hyperswarmManager = require('./hyperswarm-manager')
+const mapManager = require('./map-manager')
+const locationManager = require('./location-manager')
 
-IPC.setEncoding('utf8');
+console.log('Application starting...')
 
-// Send 3 messages at 2-second intervals
-setTimeout(() => {
-    IPC.write('Message 1\n');
-}, 2000);
+// IPC Event Listeners
+ipc.on('start', async (data) => {
+    const documentsPath = data['path']
+    try {
+        await hyperbeeManager.initializeHyperbee(documentsPath)
+        const keyPair = await hyperbeeManager.getOrCreateKeyPair()
+        await hyperswarmManager.initializeHyperswarm(keyPair)
 
-setTimeout(() => {
-    IPC.write('Message 2\n');
-}, 4000);
+        // Setup and register all protocols
+        //    await mapManager.getMaps(documentsPath)
+        locationManager.setupLocationProtocol()
 
-setTimeout(() => {
-    IPC.write('Message 3\n');
-}, 6000);
+        console.log('All managers initialized and protocols registered.')
+    } catch (error) {
+        console.error('Failed to start application:', error)
+    }
+})
 
-// Optional: 4th message after 8 seconds
-setTimeout(() => {
-    IPC.write('Message 4\n');
-}, 8000);
+ipc.on('requestPublicKey', async () => {
+    try {
+        const publicKey = await hyperbeeManager.getPublicKeyFromDb()
+        if (publicKey) {
+            ipc.send('publicKeyResponse', { publicKey: publicKey })
+        } else {
+            console.warn('Public key not found in database.')
+        }
+    } catch (error) {
+        console.error('Error requesting public key:', error)
+    }
+})
+
+ipc.on('joinPeer', async (data) => {
+    const peerPublicKey = data
+    try {
+        hyperswarmManager.joinPeer(peerPublicKey);
+    } catch (error) {
+        console.error('Failed to join peer:', error);
+    }
+});
+
+ipc.on('leavePeer', async (data) => {
+    const peerPublicKey = data;
+    console.log('Received "leavePeer" event for:', peerPublicKey);
+    try {
+        await hyperswarmManager.closeConnection(peerPublicKey);
+        hyperswarmManager.leavePeer(peerPublicKey);
+    } catch (error) {
+        console.error('Failed to leave peer:', error);
+    }
+});
+
+ipc.on('locationUpdate', async (data) => {
+    console.log('Received "locationUpdate" event.')
+    try {
+        locationManager.sendLocationToPeers(data)
+    } catch (error) {
+        console.error('Failed to send user location:', error)
+    }
+})
