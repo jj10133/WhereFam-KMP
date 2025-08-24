@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface UserRepository {
     val currentPublicKey: StateFlow<String>
 
-    fun updatePublicKey(key: String)
+    suspend fun updatePublicKey(key: String)
 }

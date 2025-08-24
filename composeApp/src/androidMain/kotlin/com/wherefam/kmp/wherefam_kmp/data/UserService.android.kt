@@ -10,7 +10,7 @@ class UserService(private val ipc: IPC) : UserRepository {
     private val _currentPublicKey = MutableStateFlow("")
     override val currentPublicKey: StateFlow<String> = _currentPublicKey.asStateFlow()
 
-    override fun updatePublicKey(key: String) {
+    override suspend fun updatePublicKey(key: String) {
         _currentPublicKey.value = key
     }
 }
