@@ -21,10 +21,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PeopleView(peopleViewModel: PeopleViewModel = koinViewModel()) {
-    val peopleList by peopleViewModel.peopleList.collectAsState()
+    val peopleList by peopleViewModel.peersList.collectAsState(initial = emptyList())
     var showDialog by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
-
 
     Column(
         modifier = Modifier
@@ -68,7 +66,7 @@ fun PeopleView(peopleViewModel: PeopleViewModel = koinViewModel()) {
                     SwipeToDeleteContainer(
                         item = person,
                         onDelete = {
-                            peopleViewModel.removePerson(person.id)
+                            peopleViewModel.deletePeer(person.id)
                         }
                     ) {
                         Row(
@@ -98,10 +96,9 @@ fun PeopleView(peopleViewModel: PeopleViewModel = koinViewModel()) {
     if (showDialog) {
         AddPeopleDialog(
             onConfirm = { newPersonId ->
-                peopleViewModel.addPerson(Peer(newPersonId, "", 0.0, 0.0))
-                coroutineScope.launch {
-                    peopleViewModel.joinPeer(newPersonId)
-                }
+                peopleViewModel.addPeer(newPersonId, "", 0.0, 0.0)
+                peopleViewModel.joinPeer(newPersonId)
+
                 showDialog = false
             },
             onDismiss = {
