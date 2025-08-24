@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wherefam.kmp.wherefam_kmp.data.IPCUtils.writeAsync
+import com.wherefam.kmp.wherefam_kmp.data.dao.PeerDao
+import com.wherefam.kmp.wherefam_kmp.domain.Peer
 import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -18,13 +20,13 @@ import java.nio.charset.Charset
 class HomeViewModel(
     context: Context,
     private val ipc: IPC,
-    private val peerRepository: PeerRepository
+    peerDao: PeerDao
 ) : ViewModel() {
     private val fileDir = context.filesDir
 
 //    val userLocation: MutableState<Location> = mutableStateOf(Location("gps"))
 
-    val peers: StateFlow<List<Peer>> = peerRepository.getAllPeers()
+    val peers: StateFlow<List<Peer>> = peerDao.getAllPeers()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
