@@ -2,5 +2,21 @@
   "devDependencies": {
     "bare-link": "^1.4.0",
     "bare-pack": "^1.4.0"
+  },
+  "dependencies": {
+    "b4a": "^1.6.7",
+    "bare-events": "^2.5.4",
+    "compact-encoding": "^2.16.1",
+    "corestore": "^7.4.5",
+    "hyperbee": "^2.24.3",
+    "hypercore": "^11.11.1",
+    "hypercore-blob-server": "^1.11.0",
+    "hyperswarm": "^4.12.1",
+    "sodium-native": "^5.0.5",
+    "protomux": "^3.10.1",
+    "udx-native": "^1.18.2"
+  },
+  "overrides": {
+    "hypercore-byte-stream": "^2.0.2"
   }
 }
