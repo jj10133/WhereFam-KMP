@@ -28,7 +28,7 @@ import to.holepunch.bare.kit.IPC
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
 
-class ShareViewModel(private val userRepository: UserRepository, private val ipc: IPC) : ViewModel() {
+class ShareViewModel(userRepository: UserRepository, private val ipc: IPC) : ViewModel() {
     val publicKey: StateFlow<String> = userRepository.currentPublicKey
 
     private val _qrCodeBitmap = MutableStateFlow<ImageBitmap?>(null)
@@ -46,12 +46,14 @@ class ShareViewModel(private val userRepository: UserRepository, private val ipc
         }
     }
 
-    suspend fun requestPublicKey() {
-        val dynamicData = buildJsonObject {}
-        val message = GenericAction(action = "requestPublicKey", data = dynamicData)
-        val jsonString = Json.Default.encodeToString(message) + "\n"
-        val byteBuffer = ByteBuffer.wrap(jsonString.toByteArray(Charset.forName("UTF-8")))
-        ipc.writeAsync(byteBuffer)
+    fun requestPublicKey() {
+        viewModelScope.launch {
+            val dynamicData = buildJsonObject {}
+            val message = GenericAction(action = "requestPublicKey", data = dynamicData)
+            val jsonString = Json.Default.encodeToString(message) + "\n"
+            val byteBuffer = ByteBuffer.wrap(jsonString.toByteArray(Charset.forName("UTF-8")))
+            ipc.writeAsync(byteBuffer)
+        }
     }
 
     private fun generateAndSetQrCode(shareID: String) {
