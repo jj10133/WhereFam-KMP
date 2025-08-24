@@ -13,8 +13,8 @@ interface PeerDao {
     @Upsert
     suspend fun upsert(peer: Peer)
 
-    @Delete
-    suspend fun delete(peer: Peer)
+    @Query("DELETE FROM peer WHERE id = :id")
+    suspend fun deleteById(id: String)
 
     @Transaction
     @Query("SELECT * FROM peer")
