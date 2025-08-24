@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.wherefam.kmp.wherefam_kmp.domain.Peer
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -97,7 +98,7 @@ fun PeopleView(peopleViewModel: PeopleViewModel = koinViewModel()) {
     if (showDialog) {
         AddPeopleDialog(
             onConfirm = { newPersonId ->
-                peopleViewModel.addPerson(Peer(newPersonId, null, null, null))
+                peopleViewModel.addPerson(Peer(newPersonId, "", 0.0, 0.0))
                 coroutineScope.launch {
                     peopleViewModel.joinPeer(newPersonId)
                 }
