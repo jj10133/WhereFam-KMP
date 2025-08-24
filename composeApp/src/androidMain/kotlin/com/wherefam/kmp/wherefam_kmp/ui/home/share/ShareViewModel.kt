@@ -11,6 +11,10 @@ import androidx.lifecycle.viewModelScope
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
+import com.wherefam.kmp.wherefam_kmp.data.IPCProvider.ipc
+import com.wherefam.kmp.wherefam_kmp.data.IPCUtils.writeAsync
+import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
+import com.wherefam.kmp.wherefam_kmp.processing.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,8 +22,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.buildJsonObject
+import to.holepunch.bare.kit.IPC
+import java.nio.ByteBuffer
+import java.nio.charset.Charset
 
-class ShareViewModel(private val userRepository: UserRepository) : ViewModel() {
+class ShareViewModel(private val userRepository: UserRepository, private val ipc: IPC) : ViewModel() {
     val publicKey: StateFlow<String> = userRepository.currentPublicKey
 
     private val _qrCodeBitmap = MutableStateFlow<ImageBitmap?>(null)
@@ -38,7 +47,11 @@ class ShareViewModel(private val userRepository: UserRepository) : ViewModel() {
     }
 
     suspend fun requestPublicKey() {
-        userRepository.requestPublicKey()
+        val dynamicData = buildJsonObject {}
+        val message = GenericAction(action = "requestPublicKey", data = dynamicData)
+        val jsonString = Json.Default.encodeToString(message) + "\n"
+        val byteBuffer = ByteBuffer.wrap(jsonString.toByteArray(Charset.forName("UTF-8")))
+        ipc.writeAsync(byteBuffer)
     }
 
     private fun generateAndSetQrCode(shareID: String) {
