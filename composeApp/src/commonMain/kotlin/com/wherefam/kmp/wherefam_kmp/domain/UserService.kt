@@ -1,12 +1,11 @@
-package com.wherefam.kmp.wherefam_kmp.data
+package com.wherefam.kmp.wherefam_kmp.domain
 
 import com.wherefam.kmp.wherefam_kmp.processing.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import to.holepunch.bare.kit.IPC
 
-class UserService(private val ipc: IPC) : UserRepository {
+class UserService() : UserRepository {
     private val _currentPublicKey = MutableStateFlow("")
     override val currentPublicKey: StateFlow<String> = _currentPublicKey.asStateFlow()
 

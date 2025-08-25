@@ -2,10 +2,8 @@ package com.wherefam.kmp.wherefam_kmp.di
 
 import com.wherefam.kmp.wherefam_kmp.data.DataStoreRepository
 import com.wherefam.kmp.wherefam_kmp.data.IPCProvider
-import com.wherefam.kmp.wherefam_kmp.data.UserService
 import com.wherefam.kmp.wherefam_kmp.database.getDatabaseBuilder
 import com.wherefam.kmp.wherefam_kmp.managers.LocationManager
-import com.wherefam.kmp.wherefam_kmp.processing.UserRepository
 import com.wherefam.kmp.wherefam_kmp.ui.home.HomeViewModel
 import com.wherefam.kmp.wherefam_kmp.ui.home.people.PeopleViewModel
 import com.wherefam.kmp.wherefam_kmp.ui.home.share.ShareViewModel
@@ -20,7 +18,6 @@ val androidModule = module {
     single { LocationManager(get()) }
     single { IPCProvider.ipc }
     single { DataStoreRepository(get()) }
-    single<UserRepository> { UserService(get()) }
 }
 
 val viewModelModule = module {
