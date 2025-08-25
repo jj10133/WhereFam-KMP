@@ -328,6 +328,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "We need access to your local network to connect to nearby devices.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We would like to access location for sharing to other members";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We would like to access location for sharing to other members";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -363,6 +364,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "We need access to your local network to connect to nearby devices.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We would like to access location for sharing to other members";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We would like to access location for sharing to other members";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
