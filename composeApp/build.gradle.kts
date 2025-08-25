@@ -132,7 +132,7 @@ tasks.register<Exec>("barePackApp") {
         "node_modules/.bin/bare-pack",
         "--preset", "android",
         "--out", "composeApp/src/androidMain/assets/app.bundle",
-        "composeApp/src/androidMain/js/app.js"
+        "composeApp/src/commonMain/js/app.js"
     )
 }
 
@@ -144,7 +144,7 @@ tasks.register<Exec>("barePackPush") {
         "node_modules/.bin/bare-pack",
         "--preset", "android",
         "--out", "composeApp/src/androidMain/assets/push.bundle",
-        "composeApp/src/androidMain/js/push.js"
+        "composeApp/src/commonMain/js/push.js"
     )
 }
 

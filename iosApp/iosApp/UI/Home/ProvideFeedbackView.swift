@@ -6,13 +6,6 @@
 //
 
 
-//
-//  ProvideFeedbackView.swift
-//  App
-//
-//  Created by joker on 2025-01-16.
-//
-
 import SwiftUI
 
 struct ProvideFeedbackView: View {
