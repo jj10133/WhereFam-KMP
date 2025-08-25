@@ -25,3 +25,6 @@ package-lock.json
 composeApp/libs/
 iosApp/iosApp/frameworks
 
+*.xcframework
+*.so
+
