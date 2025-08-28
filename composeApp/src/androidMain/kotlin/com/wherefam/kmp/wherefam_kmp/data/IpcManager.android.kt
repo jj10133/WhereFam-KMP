@@ -8,7 +8,7 @@ actual class IpcManager {
         return ipc!!
     }
 
-    fun setIPC(ipc: IPC?) {
-        this.ipc = ipc
+    actual fun setIPC(ipc: Any?) {
+        this.ipc = ipc as? IPC
     }
 }

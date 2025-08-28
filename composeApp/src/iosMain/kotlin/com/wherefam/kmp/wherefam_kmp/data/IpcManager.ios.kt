@@ -8,8 +8,7 @@ actual class IpcManager {
         return ipc!!
     }
 
-    fun setIPC(ipc: Any?) {
+    actual fun setIPC(ipc: Any?) {
         this.ipc = ipc
-        Logger.e { "IPC set successfully called" }
     }
 }
