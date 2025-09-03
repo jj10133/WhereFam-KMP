@@ -2,14 +2,18 @@ package com.wherefam.kmp.wherefam_kmp.processing
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Logger.Companion.e
-import com.wherefam.kmp.wherefam_kmp.data.dao.PeerDao
-import com.wherefam.kmp.wherefam_kmp.domain.Peer
+import com.wherefam.kmp.wherefam_kmp.database.WhereFamDatabase
+import com.wherefam.kmp.wherefam_kmp.model.Peer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.double
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class GenericMessageProcessor(private val userRepository: UserRepository, private val peerDao: PeerDao): MessageProcessor {
+class GenericMessageProcessor(private val userRepository: UserRepository): MessageProcessor, KoinComponent {
+    private val database: WhereFamDatabase by inject()
+
     override suspend fun processMessage(message: String) {
         val individualMessage = message.split("\n").filter { it.isNotBlank() }
         for (msg in individualMessage) {
@@ -47,7 +51,7 @@ class GenericMessageProcessor(private val userRepository: UserRepository, privat
             val longitude = locationDataJson["longitude"]?.jsonPrimitive?.double
 
             if (id != null && name != null && latitude != null && longitude != null) {
-                peerDao.upsert(Peer(id, name, latitude, longitude))
+                database.peerDao().upsert(Peer(id, name, latitude, longitude))
             } else {
                 Logger.w("Invalid location update data: Missing required fields.", tag = "GenericProcessor")
             }
