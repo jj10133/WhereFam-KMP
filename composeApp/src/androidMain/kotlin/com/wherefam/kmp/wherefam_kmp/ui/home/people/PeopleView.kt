@@ -15,13 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.wherefam.kmp.wherefam_kmp.domain.Peer
-import kotlinx.coroutines.launch
+import com.wherefam.kmp.wherefam_kmp.viewmodel.PeopleViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PeopleView(peopleViewModel: PeopleViewModel = koinViewModel()) {
-    val peopleList by peopleViewModel.peersList.collectAsState(initial = emptyList())
+    val peopleList by peopleViewModel.peersList.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
 
     Column(
