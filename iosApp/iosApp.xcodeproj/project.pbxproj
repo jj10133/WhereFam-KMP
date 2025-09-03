@@ -12,15 +12,54 @@
 		F3AA1DB62E5B7C9000A706C5 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F3AA1DB52E5B7C9000A706C5 /* RevenueCat */; };
 		F3AA1DB82E5B7C9000A706C5 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = F3AA1DB72E5B7C9000A706C5 /* RevenueCatUI */; };
 		F3CEF85C2E58318E00F1CDE4 /* ConcentricOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = F3CEF85B2E58318E00F1CDE4 /* ConcentricOnboarding */; };
+		F3F982832E5D4A4900E057ED /* BareKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982692E5D49D200E057ED /* BareKit.xcframework */; };
+		F3F982842E5D4A4900E057ED /* BareKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982692E5D49D200E057ED /* BareKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982852E5D4A4900E057ED /* bare-buffer.3.3.0.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826B2E5D49E900E057ED /* bare-buffer.3.3.0.xcframework */; };
+		F3F982862E5D4A4900E057ED /* bare-buffer.3.3.0.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826B2E5D49E900E057ED /* bare-buffer.3.3.0.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982872E5D4A4900E057ED /* bare-dns.2.1.3.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826C2E5D49E900E057ED /* bare-dns.2.1.3.xcframework */; };
+		F3F982882E5D4A4900E057ED /* bare-dns.2.1.3.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826C2E5D49E900E057ED /* bare-dns.2.1.3.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982892E5D4A4900E057ED /* bare-fs.4.2.1.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826D2E5D49E900E057ED /* bare-fs.4.2.1.xcframework */; };
+		F3F9828A2E5D4A4900E057ED /* bare-fs.4.2.1.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826D2E5D49E900E057ED /* bare-fs.4.2.1.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F9828B2E5D4A4900E057ED /* bare-os.3.6.2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826E2E5D49E900E057ED /* bare-os.3.6.2.xcframework */; };
+		F3F9828C2E5D4A4900E057ED /* bare-os.3.6.2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826E2E5D49E900E057ED /* bare-os.3.6.2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F9828D2E5D4A4900E057ED /* bare-tcp.2.0.8.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826F2E5D49E900E057ED /* bare-tcp.2.0.8.xcframework */; };
+		F3F9828E2E5D4A4900E057ED /* bare-tcp.2.0.8.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F9826F2E5D49E900E057ED /* bare-tcp.2.0.8.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F9828F2E5D4A4900E057ED /* bare-url.2.2.2.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982702E5D49E900E057ED /* bare-url.2.2.2.xcframework */; };
+		F3F982902E5D4A4900E057ED /* bare-url.2.2.2.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982702E5D49E900E057ED /* bare-url.2.2.2.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982912E5D4A4900E057ED /* fs-native-extensions.1.4.3.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982712E5D49E900E057ED /* fs-native-extensions.1.4.3.xcframework */; };
+		F3F982922E5D4A4900E057ED /* fs-native-extensions.1.4.3.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982712E5D49E900E057ED /* fs-native-extensions.1.4.3.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982932E5D4A4900E057ED /* quickbit-native.2.4.8.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982722E5D49E900E057ED /* quickbit-native.2.4.8.xcframework */; };
+		F3F982942E5D4A4900E057ED /* quickbit-native.2.4.8.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982722E5D49E900E057ED /* quickbit-native.2.4.8.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982952E5D4A4900E057ED /* rocksdb-native.3.7.3.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982732E5D49E900E057ED /* rocksdb-native.3.7.3.xcframework */; };
+		F3F982962E5D4A4900E057ED /* rocksdb-native.3.7.3.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982732E5D49E900E057ED /* rocksdb-native.3.7.3.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982972E5D4A4900E057ED /* simdle-native.1.3.7.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982742E5D49E900E057ED /* simdle-native.1.3.7.xcframework */; };
+		F3F982982E5D4A4900E057ED /* simdle-native.1.3.7.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982742E5D49E900E057ED /* simdle-native.1.3.7.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F982992E5D4A4900E057ED /* sodium-native.5.0.7.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982752E5D49E900E057ED /* sodium-native.5.0.7.xcframework */; };
+		F3F9829A2E5D4A4900E057ED /* sodium-native.5.0.7.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982752E5D49E900E057ED /* sodium-native.5.0.7.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F3F9829B2E5D4A4900E057ED /* udx-native.1.18.3.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982762E5D49E900E057ED /* udx-native.1.18.3.xcframework */; };
+		F3F9829C2E5D4A4900E057ED /* udx-native.1.18.3.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F3F982762E5D49E900E057ED /* udx-native.1.18.3.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F3C777FD2E5C0D050095FF82 /* Embed Frameworks */ = {
+		F3F9829D2E5D4A4A00E057ED /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F3F982982E5D4A4900E057ED /* simdle-native.1.3.7.xcframework in Embed Frameworks */,
+				F3F982842E5D4A4900E057ED /* BareKit.xcframework in Embed Frameworks */,
+				F3F982922E5D4A4900E057ED /* fs-native-extensions.1.4.3.xcframework in Embed Frameworks */,
+				F3F9829C2E5D4A4900E057ED /* udx-native.1.18.3.xcframework in Embed Frameworks */,
+				F3F9828A2E5D4A4900E057ED /* bare-fs.4.2.1.xcframework in Embed Frameworks */,
+				F3F9828C2E5D4A4900E057ED /* bare-os.3.6.2.xcframework in Embed Frameworks */,
+				F3F9829A2E5D4A4900E057ED /* sodium-native.5.0.7.xcframework in Embed Frameworks */,
+				F3F982862E5D4A4900E057ED /* bare-buffer.3.3.0.xcframework in Embed Frameworks */,
+				F3F982882E5D4A4900E057ED /* bare-dns.2.1.3.xcframework in Embed Frameworks */,
+				F3F9828E2E5D4A4900E057ED /* bare-tcp.2.0.8.xcframework in Embed Frameworks */,
+				F3F982942E5D4A4900E057ED /* quickbit-native.2.4.8.xcframework in Embed Frameworks */,
+				F3F982962E5D4A4900E057ED /* rocksdb-native.3.7.3.xcframework in Embed Frameworks */,
+				F3F982902E5D4A4900E057ED /* bare-url.2.2.2.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -29,43 +68,37 @@
 
 /* Begin PBXFileReference section */
 		B9DA97B12DC1472C00A4DA20 /* wherefam_kmp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wherefam_kmp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3F982692E5D49D200E057ED /* BareKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = BareKit.xcframework; path = iosApp/frameworks/BareKit.xcframework; sourceTree = "<group>"; };
+		F3F9826B2E5D49E900E057ED /* bare-buffer.3.3.0.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "bare-buffer.3.3.0.xcframework"; path = "iosApp/addons/bare-buffer.3.3.0.xcframework"; sourceTree = "<group>"; };
+		F3F9826C2E5D49E900E057ED /* bare-dns.2.1.3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "bare-dns.2.1.3.xcframework"; path = "iosApp/addons/bare-dns.2.1.3.xcframework"; sourceTree = "<group>"; };
+		F3F9826D2E5D49E900E057ED /* bare-fs.4.2.1.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "bare-fs.4.2.1.xcframework"; path = "iosApp/addons/bare-fs.4.2.1.xcframework"; sourceTree = "<group>"; };
+		F3F9826E2E5D49E900E057ED /* bare-os.3.6.2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "bare-os.3.6.2.xcframework"; path = "iosApp/addons/bare-os.3.6.2.xcframework"; sourceTree = "<group>"; };
+		F3F9826F2E5D49E900E057ED /* bare-tcp.2.0.8.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "bare-tcp.2.0.8.xcframework"; path = "iosApp/addons/bare-tcp.2.0.8.xcframework"; sourceTree = "<group>"; };
+		F3F982702E5D49E900E057ED /* bare-url.2.2.2.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "bare-url.2.2.2.xcframework"; path = "iosApp/addons/bare-url.2.2.2.xcframework"; sourceTree = "<group>"; };
+		F3F982712E5D49E900E057ED /* fs-native-extensions.1.4.3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "fs-native-extensions.1.4.3.xcframework"; path = "iosApp/addons/fs-native-extensions.1.4.3.xcframework"; sourceTree = "<group>"; };
+		F3F982722E5D49E900E057ED /* quickbit-native.2.4.8.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "quickbit-native.2.4.8.xcframework"; path = "iosApp/addons/quickbit-native.2.4.8.xcframework"; sourceTree = "<group>"; };
+		F3F982732E5D49E900E057ED /* rocksdb-native.3.7.3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "rocksdb-native.3.7.3.xcframework"; path = "iosApp/addons/rocksdb-native.3.7.3.xcframework"; sourceTree = "<group>"; };
+		F3F982742E5D49E900E057ED /* simdle-native.1.3.7.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "simdle-native.1.3.7.xcframework"; path = "iosApp/addons/simdle-native.1.3.7.xcframework"; sourceTree = "<group>"; };
+		F3F982752E5D49E900E057ED /* sodium-native.5.0.7.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "sodium-native.5.0.7.xcframework"; path = "iosApp/addons/sodium-native.5.0.7.xcframework"; sourceTree = "<group>"; };
+		F3F982762E5D49E900E057ED /* udx-native.1.18.3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "udx-native.1.18.3.xcframework"; path = "iosApp/addons/udx-native.1.18.3.xcframework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		B99700CA2DC9B8D800C7335B /* Exceptions for "iosApp" folder in "iosApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				frameworks/BareKit.xcframework,
 				Info.plist,
 			);
 			target = B9DA97B02DC1472C00A4DA20 /* iosApp */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		F3C777FE2E5C0D050095FF82 /* Exceptions for "iosApp" folder in "Embed Frameworks" phase from "iosApp" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			attributesByRelativePath = {
-				"addons/bare-dns.2.1.3.xcframework" = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				"addons/bare-os.3.6.2.xcframework" = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				"addons/bare-url.2.2.2.xcframework" = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				frameworks/BareKit.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-			};
-			buildPhase = F3C777FD2E5C0D050095FF82 /* Embed Frameworks */;
-			membershipExceptions = (
-				"addons/bare-dns.2.1.3.xcframework",
-				"addons/bare-os.3.6.2.xcframework",
-				"addons/bare-url.2.2.2.xcframework",
-				frameworks/BareKit.xcframework,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B9DA97B32DC1472C00A4DA20 /* iosApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				B99700CA2DC9B8D800C7335B /* Exceptions for "iosApp" folder in "iosApp" target */,
-				F3C777FE2E5C0D050095FF82 /* Exceptions for "iosApp" folder in "Embed Frameworks" phase from "iosApp" target */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -82,11 +115,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3F982832E5D4A4900E057ED /* BareKit.xcframework in Frameworks */,
 				F33032922E550E3100F8E093 /* MapLibre in Frameworks */,
+				F3F9828B2E5D4A4900E057ED /* bare-os.3.6.2.xcframework in Frameworks */,
 				F3AA1DB82E5B7C9000A706C5 /* RevenueCatUI in Frameworks */,
+				F3F982852E5D4A4900E057ED /* bare-buffer.3.3.0.xcframework in Frameworks */,
 				F3AA1DB62E5B7C9000A706C5 /* RevenueCat in Frameworks */,
+				F3F982932E5D4A4900E057ED /* quickbit-native.2.4.8.xcframework in Frameworks */,
+				F3F982892E5D4A4900E057ED /* bare-fs.4.2.1.xcframework in Frameworks */,
+				F3F982872E5D4A4900E057ED /* bare-dns.2.1.3.xcframework in Frameworks */,
+				F3F982912E5D4A4900E057ED /* fs-native-extensions.1.4.3.xcframework in Frameworks */,
+				F3F9828D2E5D4A4900E057ED /* bare-tcp.2.0.8.xcframework in Frameworks */,
 				F38D4F942E53BEF800FA2642 /* BareKit in Frameworks */,
 				F3CEF85C2E58318E00F1CDE4 /* ConcentricOnboarding in Frameworks */,
+				F3F982992E5D4A4900E057ED /* sodium-native.5.0.7.xcframework in Frameworks */,
+				F3F9829B2E5D4A4900E057ED /* udx-native.1.18.3.xcframework in Frameworks */,
+				F3F982972E5D4A4900E057ED /* simdle-native.1.3.7.xcframework in Frameworks */,
+				F3F982952E5D4A4900E057ED /* rocksdb-native.3.7.3.xcframework in Frameworks */,
+				F3F9828F2E5D4A4900E057ED /* bare-url.2.2.2.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +160,19 @@
 		F37316132E5D31900010D28F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3F982692E5D49D200E057ED /* BareKit.xcframework */,
+				F3F9826B2E5D49E900E057ED /* bare-buffer.3.3.0.xcframework */,
+				F3F9826C2E5D49E900E057ED /* bare-dns.2.1.3.xcframework */,
+				F3F9826D2E5D49E900E057ED /* bare-fs.4.2.1.xcframework */,
+				F3F9826E2E5D49E900E057ED /* bare-os.3.6.2.xcframework */,
+				F3F9826F2E5D49E900E057ED /* bare-tcp.2.0.8.xcframework */,
+				F3F982702E5D49E900E057ED /* bare-url.2.2.2.xcframework */,
+				F3F982712E5D49E900E057ED /* fs-native-extensions.1.4.3.xcframework */,
+				F3F982722E5D49E900E057ED /* quickbit-native.2.4.8.xcframework */,
+				F3F982732E5D49E900E057ED /* rocksdb-native.3.7.3.xcframework */,
+				F3F982742E5D49E900E057ED /* simdle-native.1.3.7.xcframework */,
+				F3F982752E5D49E900E057ED /* sodium-native.5.0.7.xcframework */,
+				F3F982762E5D49E900E057ED /* udx-native.1.18.3.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,7 +188,7 @@
 				B9DA97AD2DC1472C00A4DA20 /* Sources */,
 				B9DA97AE2DC1472C00A4DA20 /* Frameworks */,
 				B9DA97AF2DC1472C00A4DA20 /* Resources */,
-				F3C777FD2E5C0D050095FF82 /* Embed Frameworks */,
+				F3F9829D2E5D4A4A00E057ED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
