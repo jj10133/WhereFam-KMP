@@ -16,7 +16,7 @@ import to.holepunch.bare.kit.IPC
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
 import com.wherefam.kmp.wherefam_kmp.R
-import com.wherefam.kmp.wherefam_kmp.data.IPCUtils.writeAsync
+import com.wherefam.kmp.wherefam_kmp.data.IPCUtils.writeStream
 import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
 
 class LocationTrackerService : Service() {
@@ -75,7 +75,7 @@ class LocationTrackerService : Service() {
 //            userRepository.requestPublicKey()
 //        } else {
             val dynamicData = buildJsonObject {
-                put("id", userRepository.currentPublicKey.value)
+                put("id", userRepository.currentPublicKey.collect { it })
                 put("name", dataStoreRepository.getUserName())
                 put("latitude", latitude)
                 put("longitude", longitude)
@@ -86,7 +86,7 @@ class LocationTrackerService : Service() {
             val jsonString = Json.encodeToString(message) + "\n"
 
             val byteBuffer = ByteBuffer.wrap(jsonString.toByteArray(Charset.forName("UTF-8")))
-            ipc.writeAsync(byteBuffer)
+            ipc.writeStream(byteBuffer)
 //        }
     }
 
