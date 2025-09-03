@@ -1,11 +1,11 @@
-package com.wherefam.kmp.wherefam_kmp.data.dao
+package com.wherefam.kmp.wherefam_kmp.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
-import com.wherefam.kmp.wherefam_kmp.domain.Peer
+import com.wherefam.kmp.wherefam_kmp.model.Peer
 import kotlinx.coroutines.flow.Flow
 
 @Dao
