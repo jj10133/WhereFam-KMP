@@ -1,5 +1,5 @@
 //
-//  IPCViewModel.swift
+//  IPCMessageConsumer.swift
 //  iosApp
 //
 //  Created by joker on 2025-08-18.
@@ -24,6 +24,7 @@ class IPCMessageConsumer {
     
     func configure(with ipc: IPC?) {
         self.ipc = ipc
+        IpcManager().setIPC(ipc: self.ipc)
     }
     
     func startConsuming() async {
