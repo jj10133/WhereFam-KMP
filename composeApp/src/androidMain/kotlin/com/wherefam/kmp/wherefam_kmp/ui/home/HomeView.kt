@@ -10,12 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.Key.Companion.Symbol
 import androidx.compose.ui.platform.LocalContext
 import com.wherefam.kmp.wherefam_kmp.managers.LocationManager
 import com.wherefam.kmp.wherefam_kmp.managers.LocationTrackerService
 import com.wherefam.kmp.wherefam_kmp.ui.home.people.PeopleView
 import com.wherefam.kmp.wherefam_kmp.ui.home.share.ShareIDView
+import com.wherefam.kmp.wherefam_kmp.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.maplibre.android.geometry.LatLng
@@ -55,7 +55,7 @@ fun HomeView(
                 zoom = 1.0
             )
         }
-        homeViewModel.start()
+        homeViewModel.start(context.filesDir.path)
     }
 
     LaunchedEffect(Unit) {
