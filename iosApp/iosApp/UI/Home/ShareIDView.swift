@@ -5,14 +5,6 @@
 //  Created by joker on 2025-08-24.
 //
 
-
-//
-//  ShareIDView.swift
-//  App
-//
-//  Created by joker on 2025-01-16.
-//
-
 import SwiftUI
 import CoreImage.CIFilterBuiltins
 
@@ -139,7 +131,3 @@ struct ShareIDView: View {
     }
 }
 
-#Preview {
-    ShareIDView()
-        .environmentObject(IPCViewModel())
-}

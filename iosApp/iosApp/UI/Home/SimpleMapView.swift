@@ -5,14 +5,6 @@
 //  Created by joker on 2025-08-24.
 //
 
-
-//
-//  SimpleMapView.swift
-//  WhereFam
-//
-//  Created by joker on 2025-08-08.
-//
-
 import MapLibre
 import SwiftUI
 

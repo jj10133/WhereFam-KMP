@@ -6,13 +6,6 @@
 //
 
 
-//
-//  AddMemberView.swift
-//  App
-//
-//  Created by joker on 2025-01-16.
-//
-
 import SwiftUI
 
 struct PeopleView: View {
@@ -64,7 +57,7 @@ struct PeopleView: View {
             .presentationDetents([.medium, .large])
         }
         .onAppear {
-            ipcViewModel.refreshPeople()
+//            ipcViewModel.refreshPeople()
         }
     }
     
@@ -93,23 +86,19 @@ struct PeopleView: View {
     
     
     private func createNewMember() {
-        let newMember = People(id: newMemberID)
-        SQLiteManager.shared.savePerson(newMember)
-        ipcViewModel.refreshPeople()
+//        let newMember = People(id: newMemberID)
+//        SQLiteManager.shared.savePerson(newMember)
+//        ipcViewModel.refreshPeople()
     }
     
     private func deleteMember(at offsets: IndexSet) {
         for index in offsets {
             let member = ipcViewModel.people[index]
             leavePeerFromSwarm(memberID: member.id)
-            SQLiteManager.shared.deletePerson(id: member.id)
+//            SQLiteManager.shared.deletePerson(id: member.id)
         }
         
-        ipcViewModel.refreshPeople()
+//        ipcViewModel.refreshPeople()
     }
 }
 
-#Preview {
-    PeopleView()
-        .environmentObject(IPCViewModel())
-}

@@ -5,14 +5,6 @@
 //  Created by joker on 2025-08-24.
 //
 
-
-//
-//  ThanksView.swift
-//  App
-//
-//  Created by joker on 2025-08-11.
-//
-
 import SwiftUI
 
 struct ThanksView: View {
