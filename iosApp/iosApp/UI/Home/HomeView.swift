@@ -8,8 +8,8 @@
 import SwiftUI
 import MapLibre
 import CoreLocation
-import RevenueCat
-import RevenueCatUI
+//import RevenueCat
+//import RevenueCatUI
 
 struct HomeView: View {
     @EnvironmentObject var ipcViewModel: IPCViewModel
@@ -93,20 +93,20 @@ struct HomeView: View {
     }
     
     private func joinPeersFromDatabase() {
-        let savedPeople = SQLiteManager.shared.fetchAllPeople()
-        
-        if !savedPeople.isEmpty {
-            Task {
-                for member in savedPeople {
-                    let message: [String: Any] = [
-                        "action": "joinPeer",
-                        "data": member.id
-                    ]
-                    
-                    await ipcViewModel.writeToIPC(message: message)
-                }
-            }
-        }
+//        let savedPeople = SQLiteManager.shared.fetchAllPeople()
+//        
+//        if !savedPeople.isEmpty {
+//            Task {
+//                for member in savedPeople {
+//                    let message: [String: Any] = [
+//                        "action": "joinPeer",
+//                        "data": member.id
+//                    ]
+//                    
+//                    await ipcViewModel.writeToIPC(message: message)
+//                }
+//            }
+//        }
     }
     
     private func sendUserLocation() {
@@ -127,16 +127,16 @@ struct HomeView: View {
     }
     
     private func checkSubscriptionStatus() {
-        Purchases.shared.getCustomerInfo { (customerInfo, error) in
-            if let error = error {
-                print("Error fetching customer info: \(error.localizedDescription)")
-                return
-            }
-            
-            if let customerInfo = customerInfo {
-                self.isSubscribed = customerInfo.entitlements["Tip"]?.isActive == true
-            }
-        }
+//        Purchases.shared.getCustomerInfo { (customerInfo, error) in
+//            if let error = error {
+//                print("Error fetching customer info: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            if let customerInfo = customerInfo {
+//                self.isSubscribed = customerInfo.entitlements["Tip"]?.isActive == true
+//            }
+//        }
     }
     
     @ViewBuilder
@@ -151,9 +151,10 @@ struct HomeView: View {
         case .support:
             if isSubscribed {
                 ThanksView()
-            } else {
-                PaywallView()
             }
+//            else {
+//                PaywallView()
+//            }
         }
     }
 }
@@ -226,8 +227,3 @@ enum MenuOption: Identifiable {
     }
 }
 
-#Preview {
-    
-    HomeView()
-        .environmentObject(IPCViewModel())
-}
