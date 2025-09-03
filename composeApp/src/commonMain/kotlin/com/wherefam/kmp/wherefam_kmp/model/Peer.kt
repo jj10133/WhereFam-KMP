@@ -1,4 +1,4 @@
-package com.wherefam.kmp.wherefam_kmp.domain
+package com.wherefam.kmp.wherefam_kmp.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
