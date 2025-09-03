@@ -1,10 +1,9 @@
-package com.wherefam.kmp.wherefam_kmp.ui.home
+package com.wherefam.kmp.wherefam_kmp.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wherefam.kmp.wherefam_kmp.data.IPCUtils.writeAsync
-import com.wherefam.kmp.wherefam_kmp.domain.Peer
+import com.wherefam.kmp.wherefam_kmp.data.IpcManager
+import com.wherefam.kmp.wherefam_kmp.model.Peer
 import com.wherefam.kmp.wherefam_kmp.domain.PeerRepository
 import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,14 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
-import to.holepunch.bare.kit.IPC
-import java.nio.ByteBuffer
-import java.nio.charset.Charset
 
-class HomeViewModel(context: Context, private val ipc: IPC, peerRepository: PeerRepository) : ViewModel() {
-    private val fileDir = context.filesDir
-
-//    val userLocation: MutableState<Location> = mutableStateOf(Location("gps"))
+class HomeViewModel(private val ipcManager: IpcManager, peerRepository: PeerRepository) : ViewModel() {
 
     val peers: StateFlow<List<Peer>> = peerRepository.getAllPeers()
         .stateIn(
@@ -31,15 +24,13 @@ class HomeViewModel(context: Context, private val ipc: IPC, peerRepository: Peer
         )
 
 
-    fun start() {
+    fun start(fileDir: String) {
         viewModelScope.launch {
-            val dynamicData = buildJsonObject { put("path", fileDir.path) }
+            val dynamicData = buildJsonObject { put("path", fileDir) }
             val message = GenericAction(action = "start", data = dynamicData)
 
             val jsonString = Json.encodeToString(message) + "\n"
-
-            val byteBuffer = ByteBuffer.wrap(jsonString.toByteArray(Charset.forName("UTF-8")))
-            ipc.writeAsync(byteBuffer)
+            ipcManager.write(jsonString)
         }
     }
 }
