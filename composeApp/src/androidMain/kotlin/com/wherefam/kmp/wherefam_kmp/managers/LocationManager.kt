@@ -22,7 +22,6 @@ class LocationManager(
     private val androidLocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
 
-    @RequiresApi(Build.VERSION_CODES.R)
     fun getLocation(
         onSuccess: (latitude: Double, longitude: Double) -> Unit,
     ){
@@ -46,7 +45,7 @@ class LocationManager(
                 }
             }
 
-            val updateInterval = 5000L
+            val updateInterval = 2000L
             val minDistance = 10f
 
             androidLocationManager.requestLocationUpdates(
