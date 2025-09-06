@@ -39,7 +39,7 @@ ipc.on('requestPublicKey', async () => {
 })
 
 ipc.on('joinPeer', async (data) => {
-    const peerPublicKey = data
+    const peerPublicKey = data["peerPublicKey"]
     try {
         hyperswarmManager.joinPeer(peerPublicKey);
     } catch (error) {
