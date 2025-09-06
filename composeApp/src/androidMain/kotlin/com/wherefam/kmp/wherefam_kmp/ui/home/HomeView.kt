@@ -27,6 +27,7 @@ import org.ramani.compose.Symbol
 import kotlin.collections.forEach
 import kotlin.jvm.java
 import com.wherefam.kmp.wherefam_kmp.R
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -52,10 +53,12 @@ fun HomeView(
         locationManager.getLocation { latitude, longitude ->
             cameraPosition.value = CameraPosition(
                 target = LatLng(latitude, longitude),
-                zoom = 1.0
+                zoom = 14.0
             )
         }
         homeViewModel.start(context.filesDir.path)
+        delay(3000)
+        homeViewModel.joinAllExistingPeers()
     }
 
     LaunchedEffect(Unit) {

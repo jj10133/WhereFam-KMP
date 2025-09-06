@@ -33,4 +33,16 @@ class HomeViewModel(private val ipcManager: IpcManager, peerRepository: PeerRepo
             ipcManager.write(jsonString)
         }
     }
+
+    fun joinAllExistingPeers() {
+        viewModelScope.launch {
+            for (peer in peers.value) {
+                val dynamicData = buildJsonObject { put("peerPublicKey", peer.id) }
+                val message = GenericAction(action = "start", data = dynamicData)
+
+                val jsonString = Json.encodeToString(message) + "\n"
+                ipcManager.write(jsonString)
+            }
+        }
+    }
 }
