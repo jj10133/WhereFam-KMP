@@ -1,6 +1,5 @@
 package com.wherefam.kmp.wherefam_kmp.ui.home
 
-import android.R
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -27,6 +26,7 @@ import org.ramani.compose.MapLibre
 import org.ramani.compose.Symbol
 import kotlin.collections.forEach
 import kotlin.jvm.java
+import com.wherefam.kmp.wherefam_kmp.R
 
 
 @Composable
@@ -113,7 +113,7 @@ fun HomeView(
                                 center = LatLng(peer.latitude, peer.longitude),
                                 size = 5F,
                                 text = peer.name,
-                                imageId = R.drawable.ic_menu_mylocation
+                                imageId = R.drawable.icons8_location_50
                             )
                         }
                     }
