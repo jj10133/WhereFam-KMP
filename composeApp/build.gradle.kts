@@ -45,7 +45,8 @@ kotlin {
             implementation(libs.datastore.preferences)
             implementation("com.google.zxing:core:3.5.3")
             implementation(libs.ramani)
-
+            implementation(libs.revenuecat)
+            implementation(libs.revenuecat.ui)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
