@@ -70,24 +70,18 @@ class LocationTrackerService : Service() {
     }
 
     private suspend fun sendLocationUpdates(latitude: Double, longitude: Double) {
+        val dynamicData = buildJsonObject {
+            put("id", userRepository.currentPublicKey.value)
+            put("name", dataStoreRepository.getUserName())
+            put("latitude", latitude)
+            put("longitude", longitude)
+        }
+        val message = GenericAction(action = "locationUpdate", data = dynamicData)
 
-//        if (userRepository.currentPublicKey.value.isEmpty()) {
-//            userRepository.requestPublicKey()
-//        } else {
-            val dynamicData = buildJsonObject {
-                put("id", userRepository.currentPublicKey.collect { it })
-                put("name", dataStoreRepository.getUserName())
-                put("latitude", latitude)
-                put("longitude", longitude)
-            }
+        val jsonString = Json.encodeToString(message) + "\n"
 
-            val message = GenericAction(action = "locationUpdate", data = dynamicData)
-
-            val jsonString = Json.encodeToString(message) + "\n"
-
-            val byteBuffer = ByteBuffer.wrap(jsonString.toByteArray(Charset.forName("UTF-8")))
-            ipc.writeStream(byteBuffer)
-//        }
+        val byteBuffer = ByteBuffer.wrap(jsonString.toByteArray(Charset.forName("UTF-8")))
+        ipc.writeStream(byteBuffer)
     }
 
     private fun stop() {

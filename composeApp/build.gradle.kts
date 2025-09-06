@@ -62,7 +62,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             api(libs.koin.core)
 
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+            implementation(libs.kotlinx.serialization)
             implementation("co.touchlab:kermit:2.0.4")
 
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.0-beta05")
