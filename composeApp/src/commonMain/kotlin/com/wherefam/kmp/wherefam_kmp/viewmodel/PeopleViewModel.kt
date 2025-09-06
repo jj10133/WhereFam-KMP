@@ -30,7 +30,13 @@ class PeopleViewModel(private val peerRepository: PeerRepository, private val ip
 
     fun deletePeer(id: String) {
         viewModelScope.launch {
-           peerRepository.deleteById(id)
+            peerRepository.deleteById(id)
+            val dynamicData = buildJsonObject {
+                put("key", id)
+            }
+            val message = GenericAction(action = "leavePeer", data = dynamicData)
+            val jsonString = Json.Default.encodeToString(message) + "\n"
+            ipcManager.write(jsonString)
         }
     }
 

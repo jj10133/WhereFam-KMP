@@ -48,7 +48,7 @@ ipc.on('joinPeer', async (data) => {
 });
 
 ipc.on('leavePeer', async (data) => {
-    const peerPublicKey = data;
+    const peerPublicKey = data["key"]
     console.log('Received "leavePeer" event for:', peerPublicKey);
     try {
         await hyperswarmManager.closeConnection(peerPublicKey);
