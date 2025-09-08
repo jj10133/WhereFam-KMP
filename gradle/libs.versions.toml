@@ -22,6 +22,7 @@ ksp = "2.2.0-2.0.2"
 kotlinx-dateTime = "0.6.0"
 revenuecat = "9.1.0"
 kotlinx-serialization = "1.8.0"
+playServicesLocaiton = "21.2.0"
 
 [libraries]
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
@@ -53,6 +54,8 @@ kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime",
 revenuecat =  { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat" }
 revenuecat-ui =  { module = "com.revenuecat.purchases:purchases-ui", version.ref = "revenuecat" }
 kotlinx-serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocaiton" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -47,6 +47,8 @@ kotlin {
             implementation(libs.ramani)
             implementation(libs.revenuecat)
             implementation(libs.revenuecat.ui)
+
+            implementation(libs.play.services.location)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
