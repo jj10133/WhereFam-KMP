@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wherefam.kmp.wherefam_kmp.data.DataStoreRepository
+import kotlinx.coroutines.flow.first
 
 import kotlinx.coroutines.launch
 
@@ -21,13 +22,8 @@ class SplashViewModel(
 
     init {
         viewModelScope.launch {
-            dataStoreRepository.readOnBoardingState().collect { completed ->
-                if (completed) {
-                    _startDestination.value = "Home"
-                } else {
-                    _startDestination.value = "Onboarding"
-                }
-            }
+            val completed = dataStoreRepository.readOnBoardingState().first()
+            _startDestination.value = if (completed) "Home" else "Onboarding"
             _isLoading.value = false
         }
     }

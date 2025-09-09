@@ -114,8 +114,8 @@ fun OnboardingView(
                         pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
                 } else {
+                    onboardingViewModel.saveOnboardingState(completed = true)
                     coroutineScope.launch {
-                        onboardingViewModel.saveOnboardingState(completed = true)
                         navController.popBackStack()
                         navController.navigate("Home")
                     }
