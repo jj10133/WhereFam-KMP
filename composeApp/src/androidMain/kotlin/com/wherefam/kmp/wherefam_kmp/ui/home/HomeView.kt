@@ -2,6 +2,7 @@ package com.wherefam.kmp.wherefam_kmp.ui.home
 
 import android.content.Intent
 import android.graphics.Color
+import android.location.Location
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,6 +49,7 @@ fun HomeView(
     var dialogInput by remember { mutableStateOf("") }
 
     val peers by homeViewModel.peers.collectAsState()
+    val userLocation = locationManager.trackLocation().collectAsState(initial = null)
 
     LaunchedEffect(Unit) {
         locationManager.getLocation { latitude, longitude ->
@@ -108,7 +110,9 @@ fun HomeView(
                         enablePulse = true,
                         pulseColor = Color.BLUE
                     ),
-                    renderMode = renderMode.value
+                    renderMode = renderMode.value,
+                    userLocation = userLocation as MutableState<Location>?
+
                 ) {
                     peers.forEach { peer ->
                         if (peer.latitude != 0.0 && peer.longitude != 0.0) {
