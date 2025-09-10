@@ -19,10 +19,14 @@ import com.wherefam.kmp.wherefam_kmp.viewmodel.HomeViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
+import org.maplibre.android.location.LocationComponentActivationOptions
+import org.maplibre.android.location.modes.CameraMode
 import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.Style
+import org.maplibre.android.plugins.annotation.Symbol
+import org.maplibre.android.plugins.annotation.SymbolManager
 
 
 @Composable
@@ -46,13 +50,11 @@ fun HomeView(
     val peers by homeViewModel.peers.collectAsState()
     val userLocation = locationManager.trackLocation().collectAsState(initial = null)
 
+    var mapLibreMap by remember { mutableStateOf<MapLibreMap?>(null) }
+    var symbolManager by remember { mutableStateOf<SymbolManager?>(null) }
+    var userSymbol by remember { mutableStateOf<Symbol?>(null) }
+
     LaunchedEffect(Unit) {
-        locationManager.getLocation { latitude, longitude ->
-//            cameraPosition.value = CameraPosition(
-//                target = LatLng(latitude, longitude),
-//                zoom = 14.0
-//            )
-        }
         homeViewModel.start(context.filesDir.path)
         delay(3000)
         homeViewModel.joinAllExistingPeers()
@@ -64,8 +66,6 @@ fun HomeView(
         }
         context.startService(intent)
     }
-
-    var mapLibreMap by remember { mutableStateOf<MapLibreMap?>(null) }
 
     Scaffold(
         floatingActionButton = {
@@ -102,8 +102,13 @@ fun HomeView(
                            onCreate(null)
                            getMapAsync { map ->
                                mapLibreMap = map
-                               mapLibreMap?.setStyle(Style.Builder().fromUri("https://tiles.openfreemap.org/styles/liberty"))
-
+                               mapLibreMap?.setStyle(Style.Builder().fromUri("https://tiles.openfreemap.org/styles/liberty")) { style ->
+                                   val locationComponent = mapLibreMap?.locationComponent
+                                   val activationOptions = LocationComponentActivationOptions.Builder(context, style).build()
+                                   locationComponent?.activateLocationComponent(activationOptions)
+                                   locationComponent?.isLocationComponentEnabled = true
+                                   locationComponent?.cameraMode = CameraMode.TRACKING
+                               }
                            }
                        }
                     },
