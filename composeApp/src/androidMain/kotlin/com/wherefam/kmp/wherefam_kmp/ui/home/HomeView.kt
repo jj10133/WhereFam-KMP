@@ -1,8 +1,6 @@
 package com.wherefam.kmp.wherefam_kmp.ui.home
 
 import android.content.Intent
-import android.graphics.Color
-import android.location.Location
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,24 +9,20 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.wherefam.kmp.wherefam_kmp.managers.LocationManager
 import com.wherefam.kmp.wherefam_kmp.managers.LocationTrackerService
 import com.wherefam.kmp.wherefam_kmp.ui.home.people.PeopleView
 import com.wherefam.kmp.wherefam_kmp.ui.home.share.ShareIDView
 import com.wherefam.kmp.wherefam_kmp.viewmodel.HomeViewModel
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
-import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.location.modes.RenderMode
+import org.maplibre.android.maps.MapLibreMap
+import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.Style
-import org.ramani.compose.CameraPosition
-import org.ramani.compose.LocationStyling
-import org.ramani.compose.MapLibre
-import org.ramani.compose.Symbol
-import kotlin.collections.forEach
-import kotlin.jvm.java
-import com.wherefam.kmp.wherefam_kmp.R
-import kotlinx.coroutines.delay
 
 
 @Composable
@@ -38,8 +32,9 @@ fun HomeView(
     locationManager: LocationManager = koinInject()
 ) {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
 
-    val cameraPosition = rememberSaveable { mutableStateOf(CameraPosition(zoom = 14.0)) }
+//    val cameraPosition = rememberSaveable { mutableStateOf(CameraPosition(zoom = 14.0)) }
     val renderMode = rememberSaveable { mutableIntStateOf(RenderMode.NORMAL) }
 
     var selectedOption by remember { mutableStateOf<MenuOption?>(null) }
@@ -53,10 +48,10 @@ fun HomeView(
 
     LaunchedEffect(Unit) {
         locationManager.getLocation { latitude, longitude ->
-            cameraPosition.value = CameraPosition(
-                target = LatLng(latitude, longitude),
-                zoom = 14.0
-            )
+//            cameraPosition.value = CameraPosition(
+//                target = LatLng(latitude, longitude),
+//                zoom = 14.0
+//            )
         }
         homeViewModel.start(context.filesDir.path)
         delay(3000)
@@ -70,7 +65,7 @@ fun HomeView(
         context.startService(intent)
     }
 
-
+    var mapLibreMap by remember { mutableStateOf<MapLibreMap?>(null) }
 
     Scaffold(
         floatingActionButton = {
@@ -101,31 +96,23 @@ fun HomeView(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                MapLibre(
-                    modifier = Modifier.fillMaxSize(),
-//                    asset://style.json
-                    styleBuilder = Style.Builder().fromUri("https://tiles.openfreemap.org/styles/liberty"),
-                    cameraPosition = cameraPosition.value,
-                    locationStyling = LocationStyling(
-                        enablePulse = true,
-                        pulseColor = Color.BLUE
-                    ),
-                    renderMode = renderMode.value,
-                    userLocation = userLocation as MutableState<Location>?
+                AndroidView(
+                    factory = {
+                       MapView(it).apply {
+                           onCreate(null)
+                           getMapAsync { map ->
+                               mapLibreMap = map
+                               mapLibreMap?.setStyle(Style.Builder().fromUri("https://tiles.openfreemap.org/styles/liberty"))
 
+                           }
+                       }
+                    },
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    peers.forEach { peer ->
-                        if (peer.latitude != 0.0 && peer.longitude != 0.0) {
-                            Symbol(
-                                center = LatLng(peer.latitude, peer.longitude),
-                                size = 5F,
-                                text = peer.name,
-                                imageId = R.drawable.icons8_location_50
-                            )
-                        }
-                    }
+
                 }
             }
+
 
             if (bottomSheetVisible) {
                 ModalBottomSheet(
