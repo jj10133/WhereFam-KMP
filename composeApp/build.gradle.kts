@@ -1,5 +1,4 @@
 import com.android.build.gradle.internal.tasks.factory.dependsOn
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -44,11 +43,13 @@ kotlin {
 
             implementation(libs.datastore.preferences)
             implementation("com.google.zxing:core:3.5.3")
-            implementation(libs.ramani)
+//            implementation(libs.ramani)
             implementation(libs.revenuecat)
             implementation(libs.revenuecat.ui)
 
 //            implementation(libs.play.services.location)
+            implementation("org.maplibre.gl:android-sdk:11.13.1")
+            implementation("org.maplibre.gl:android-plugin-annotation-v9:3.0.2")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
