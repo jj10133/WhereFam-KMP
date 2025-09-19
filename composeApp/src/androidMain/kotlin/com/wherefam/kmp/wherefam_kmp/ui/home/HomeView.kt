@@ -1,32 +1,33 @@
 package com.wherefam.kmp.wherefam_kmp.ui.home
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.view.LayoutInflater
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.wherefam.kmp.wherefam_kmp.R
 import com.wherefam.kmp.wherefam_kmp.managers.LocationManager
 import com.wherefam.kmp.wherefam_kmp.managers.LocationTrackerService
 import com.wherefam.kmp.wherefam_kmp.ui.home.people.PeopleView
 import com.wherefam.kmp.wherefam_kmp.ui.home.share.ShareIDView
 import com.wherefam.kmp.wherefam_kmp.viewmodel.HomeViewModel
-import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
+import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.location.LocationComponentActivationOptions
 import org.maplibre.android.location.modes.CameraMode
-import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
-import org.maplibre.android.maps.Style
 import org.maplibre.android.plugins.annotation.Symbol
 import org.maplibre.android.plugins.annotation.SymbolManager
+import org.maplibre.android.plugins.annotation.SymbolOptions
+import org.maplibre.android.style.layers.Property.TEXT_ANCHOR_TOP
 
 
 @Composable
@@ -36,10 +37,7 @@ fun HomeView(
     locationManager: LocationManager = koinInject()
 ) {
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
 
-//    val cameraPosition = rememberSaveable { mutableStateOf(CameraPosition(zoom = 14.0)) }
-    val renderMode = rememberSaveable { mutableIntStateOf(RenderMode.NORMAL) }
 
     var selectedOption by remember { mutableStateOf<MenuOption?>(null) }
     var bottomSheetVisible by remember { mutableStateOf(false) }
@@ -48,23 +46,74 @@ fun HomeView(
     var dialogInput by remember { mutableStateOf("") }
 
     val peers by homeViewModel.peers.collectAsState()
-    val userLocation = locationManager.trackLocation().collectAsState(initial = null)
 
     var mapLibreMap by remember { mutableStateOf<MapLibreMap?>(null) }
     var symbolManager by remember { mutableStateOf<SymbolManager?>(null) }
-    var userSymbol by remember { mutableStateOf<Symbol?>(null) }
-
-    LaunchedEffect(Unit) {
-        homeViewModel.start(context.filesDir.path)
-        delay(3000)
-        homeViewModel.joinAllExistingPeers()
-    }
+    val peerSymbols = remember { mutableStateMapOf<String, Symbol>() }
 
     LaunchedEffect(Unit) {
         val intent = Intent(context, LocationTrackerService::class.java).apply {
             action = LocationTrackerService.Action.START.name
         }
         context.startService(intent)
+    }
+
+    LaunchedEffect(peers, symbolManager) {
+        if (symbolManager != null) {
+            val map = mapLibreMap
+            if (map != null && map.style?.isFullyLoaded == true) {
+
+                val style = map.style!!
+                val peerIconId = "peer-icon"
+                style.addImageAsync(
+                    peerIconId, BitmapFactory.decodeResource(
+                        context.resources,
+                        R.drawable.icons8_test_account_24
+                    )
+                )
+
+                // Keep track of peer IDs currently in the `peers` list
+                val currentPeerIds = peers.map { it.id }.toSet()
+
+                // Remove symbols for peers that are no longer in the list
+                val peersToRemove = peerSymbols.keys.toSet() - currentPeerIds
+                peersToRemove.forEach { id ->
+                    val symbol = peerSymbols[id]
+                    if (symbol != null) {
+                        symbolManager?.delete(symbol)
+                        peerSymbols.remove(id)
+                    }
+                }
+
+                // Create or update symbols for the current peers
+                peers.forEach { peer ->
+                    val latLng = LatLng(peer.latitude, peer.longitude)
+                    val existingSymbol = peerSymbols[peer.id]
+
+                    if (existingSymbol != null) {
+                        existingSymbol.latLng = latLng
+                        existingSymbol.textField = peer.name
+                        symbolManager?.update(existingSymbol)
+                    } else {
+                        val symbolOptions = SymbolOptions()
+                            .withLatLng(latLng)
+                            .withIconImage(peerIconId)
+                            .withIconSize(1f)
+                            .withTextField(peer.name)
+                            .withTextSize(15.0f)
+                            .withTextFont(arrayOf("Noto Sans Regular"))
+                            .withTextAnchor(TEXT_ANCHOR_TOP)
+                            .withTextOffset(arrayOf(0f, 0.8f))
+
+                        val newSymbol = symbolManager?.create(symbolOptions)
+                        if (newSymbol != null) {
+                            peerSymbols[peer.id] = newSymbol
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
     Scaffold(
@@ -96,25 +145,25 @@ fun HomeView(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                AndroidView(
-                    factory = {
-                       MapView(it).apply {
-                           onCreate(null)
-                           getMapAsync { map ->
-                               mapLibreMap = map
-                               mapLibreMap?.setStyle(Style.Builder().fromUri("https://tiles.openfreemap.org/styles/liberty")) { style ->
-                                   val locationComponent = mapLibreMap?.locationComponent
-                                   val activationOptions = LocationComponentActivationOptions.Builder(context, style).build()
-                                   locationComponent?.activateLocationComponent(activationOptions)
-                                   locationComponent?.isLocationComponentEnabled = true
-                                   locationComponent?.cameraMode = CameraMode.TRACKING
-                               }
-                           }
-                       }
-                    },
+                MapXmlViewWrapper(
                     modifier = Modifier.fillMaxSize()
-                ) {
+                ) { map, mapView ->
+                    mapLibreMap = map
 
+                    map.getStyle { style ->
+                        symbolManager = SymbolManager(mapView, map, style).apply {
+                            iconAllowOverlap = true
+                            textAllowOverlap = true
+                        }
+
+                        homeViewModel.start(context.filesDir.path)
+
+                        val locationComponent = map.locationComponent
+                        val activationOptions = LocationComponentActivationOptions.Builder(context, style).build()
+                        locationComponent.activateLocationComponent(activationOptions)
+                        locationComponent.isLocationComponentEnabled = true
+                        locationComponent.cameraMode = CameraMode.TRACKING
+                    }
                 }
             }
 
@@ -172,3 +221,31 @@ fun RateView() {
     context.startActivity(intent)
 }
 
+@Composable
+fun MapXmlViewWrapper(
+    modifier: Modifier = Modifier,
+    onMapReady: (MapLibreMap, MapView) -> Unit
+) {
+
+    AndroidView(
+        modifier = modifier,
+        factory = { ctx ->
+            // Inflate from XML
+            val inflater = LayoutInflater.from(ctx)
+            val view = inflater.inflate(R.layout.map_view, null, false)
+            val mapView = view.findViewById<MapView>(R.id.map_view)
+
+            mapView.onCreate(null)
+            mapView.onStart()
+            mapView.onResume()
+
+            mapView.getMapAsync { mapLibreMap ->
+                mapLibreMap.setStyle("https://tiles.openfreemap.org/styles/bright")
+                onMapReady(mapLibreMap, mapView)
+            }
+
+            view
+        },
+        update = {}
+    )
+}
