@@ -3,8 +3,8 @@ package com.wherefam.kmp.wherefam_kmp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wherefam.kmp.wherefam_kmp.data.IpcManager
-import com.wherefam.kmp.wherefam_kmp.model.Peer
 import com.wherefam.kmp.wherefam_kmp.domain.PeerRepository
+import com.wherefam.kmp.wherefam_kmp.model.Peer
 import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -35,7 +35,7 @@ class PeopleViewModel(private val peerRepository: PeerRepository, private val ip
                 put("key", id)
             }
             val message = GenericAction(action = "leavePeer", data = dynamicData)
-            val jsonString = Json.Default.encodeToString(message) + "\n"
+            val jsonString = Json.encodeToString(message) + "\n"
             ipcManager.write(jsonString)
         }
     }
@@ -46,7 +46,7 @@ class PeopleViewModel(private val peerRepository: PeerRepository, private val ip
                 put("peerPublicKey", key)
             }
             val message = GenericAction(action = "joinPeer", data = dynamicData)
-            val jsonString = Json.Default.encodeToString(message) + "\n"
+            val jsonString = Json.encodeToString(message) + "\n"
             ipcManager.write(jsonString)
         }
     }
