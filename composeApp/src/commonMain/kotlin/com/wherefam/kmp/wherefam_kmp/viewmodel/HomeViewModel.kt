@@ -3,9 +3,10 @@ package com.wherefam.kmp.wherefam_kmp.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wherefam.kmp.wherefam_kmp.data.IpcManager
-import com.wherefam.kmp.wherefam_kmp.model.Peer
 import com.wherefam.kmp.wherefam_kmp.domain.PeerRepository
+import com.wherefam.kmp.wherefam_kmp.model.Peer
 import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -31,6 +32,9 @@ class HomeViewModel(private val ipcManager: IpcManager, peerRepository: PeerRepo
 
             val jsonString = Json.encodeToString(message) + "\n"
             ipcManager.write(jsonString)
+
+            delay(3000)
+            joinAllExistingPeers()
         }
     }
 
@@ -38,7 +42,7 @@ class HomeViewModel(private val ipcManager: IpcManager, peerRepository: PeerRepo
         viewModelScope.launch {
             for (peer in peers.value) {
                 val dynamicData = buildJsonObject { put("peerPublicKey", peer.id) }
-                val message = GenericAction(action = "start", data = dynamicData)
+                val message = GenericAction(action = "joinPeer", data = dynamicData)
 
                 val jsonString = Json.encodeToString(message) + "\n"
                 ipcManager.write(jsonString)
