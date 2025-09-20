@@ -5,13 +5,13 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wherefam.kmp.wherefam_kmp.data.DataStoreRepository
+import com.wherefam.kmp.wherefam_kmp.domain.OnboardingRepository
 import kotlinx.coroutines.flow.first
 
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val dataStoreRepository: DataStoreRepository
+    private val onboardingRepository: OnboardingRepository
 ) : ViewModel() {
 
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
@@ -22,7 +22,7 @@ class SplashViewModel(
 
     init {
         viewModelScope.launch {
-            val completed = dataStoreRepository.readOnBoardingState().first()
+            val completed = onboardingRepository.getOnboardingStatus().first()
             _startDestination.value = if (completed) "Home" else "Onboarding"
             _isLoading.value = false
         }

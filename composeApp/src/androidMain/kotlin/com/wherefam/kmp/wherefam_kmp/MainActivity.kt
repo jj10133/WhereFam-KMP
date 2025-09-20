@@ -9,23 +9,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.wherefam.kmp.wherefam_kmp.data.IPCMessageConsumer
 import com.wherefam.kmp.wherefam_kmp.data.IpcManager
 import com.wherefam.kmp.wherefam_kmp.managers.LocationTrackerService
 import com.wherefam.kmp.wherefam_kmp.processing.GenericMessageProcessor
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.CustomOrange
 import com.wherefam.kmp.wherefam_kmp.ui.onboarding.SplashViewModel
 import com.wherefam.kmp.wherefam_kmp.ui.root.ContentView
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import to.holepunch.bare.kit.IPC
@@ -73,23 +67,15 @@ class MainActivity : ComponentActivity() {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
 
-        setContent {
-            val screen by splashViewModel.startDestination
-            val isLoading by splashViewModel.isLoading
+        installSplashScreen().setKeepOnScreenCondition {
+            !splashViewModel.isLoading.value
+        }
 
-            if (!isLoading) {
+        lifecycleScope.launch {
+            setContent {
+                val screen by splashViewModel.startDestination
                 val navController = rememberNavController()
                 ContentView(navController, screen)
-            } else {
-                // Splash screen UI here
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = CustomOrange)
-                }
             }
         }
     }

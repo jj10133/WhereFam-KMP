@@ -115,10 +115,8 @@ fun OnboardingView(
                     }
                 } else {
                     onboardingViewModel.saveOnboardingState(completed = true)
-                    coroutineScope.launch {
-                        navController.popBackStack()
-                        navController.navigate("Home")
-                    }
+                    navController.popBackStack()
+                    navController.navigate("Home")
                 }
             },
             modifier = Modifier
