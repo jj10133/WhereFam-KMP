@@ -60,9 +60,10 @@ function handleConnection(conn, info) {
 
     conn.on('close', async () => {
         connections = connections.filter((m) => m !== mux)
-        ipc.send('peerDisconnected', { peerKey: peerPublicKey })
-        closeConnection(peerPublicKey)
-        tempLeaveCache.add(peerPublicKey)
+        // TODO Need to fix this issue
+        // ipc.send('peerDisconnected', { peerKey: peerPublicKey })
+        // await closeConnection(peerPublicKey)
+        // tempLeaveCache.add(peerPublicKey)
     })
 
     conn.on('error', (e) =>
