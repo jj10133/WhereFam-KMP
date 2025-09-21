@@ -4,13 +4,15 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.wherefam.kmp.wherefam_kmp.R
 import com.wherefam.kmp.wherefam_kmp.data.IpcManager
+import com.wherefam.kmp.wherefam_kmp.domain.OnboardingRepository
 import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
 import com.wherefam.kmp.wherefam_kmp.processing.UserRepository
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.OnboardingViewModel
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -24,7 +26,7 @@ class LocationTrackerService : Service() {
     private val locationManager: LocationManager by inject()
     private val ipcManager: IpcManager by inject()
     private val userRepository: UserRepository by inject()
-    private val onboardingViewModel: OnboardingViewModel by inject()
+    private val onboardingRepository: OnboardingRepository by inject()
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -50,6 +52,8 @@ class LocationTrackerService : Service() {
         startForeground(1, notification.build())
 
         scope.launch {
+            val userName = onboardingRepository.getUserName().first()
+
             locationManager.trackLocation().collect { location ->
                 val latitude = location.latitude
                 val longitude = location.longitude
@@ -61,15 +65,15 @@ class LocationTrackerService : Service() {
                     ).build()
                 )
 
-                sendLocationUpdates(latitude, longitude)
+                sendLocationUpdates(latitude, longitude, userName)
             }
         }
     }
 
-    private suspend fun sendLocationUpdates(latitude: Double, longitude: Double) {
+    private suspend fun sendLocationUpdates(latitude: Double, longitude: Double, userName: String) {
         val dynamicData = buildJsonObject {
             put("id", userRepository.currentPublicKey.value)
-            put("name", onboardingViewModel.storedUsername.value)
+            put("name", userName)
             put("latitude", latitude)
             put("longitude", longitude)
         }
@@ -77,6 +81,7 @@ class LocationTrackerService : Service() {
 
         val jsonString = Json.encodeToString(message) + "\n"
         ipcManager.write(jsonString)
+        Log.d("LocationTrackerService", jsonString)
     }
 
     private fun stop() {
