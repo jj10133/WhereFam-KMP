@@ -6,10 +6,10 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.wherefam.kmp.wherefam_kmp.R
-import com.wherefam.kmp.wherefam_kmp.data.DataStoreRepository
 import com.wherefam.kmp.wherefam_kmp.data.IpcManager
 import com.wherefam.kmp.wherefam_kmp.processing.GenericAction
 import com.wherefam.kmp.wherefam_kmp.processing.UserRepository
+import com.wherefam.kmp.wherefam_kmp.ui.onboarding.OnboardingViewModel
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
@@ -23,8 +23,8 @@ class LocationTrackerService : Service() {
 
     private val locationManager: LocationManager by inject()
     private val ipcManager: IpcManager by inject()
-    private val dataStoreRepository: DataStoreRepository by inject()
     private val userRepository: UserRepository by inject()
+    private val onboardingViewModel: OnboardingViewModel by inject()
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -69,7 +69,7 @@ class LocationTrackerService : Service() {
     private suspend fun sendLocationUpdates(latitude: Double, longitude: Double) {
         val dynamicData = buildJsonObject {
             put("id", userRepository.currentPublicKey.value)
-            put("name", dataStoreRepository.getUserName())
+            put("name", onboardingViewModel.storedUsername.value)
             put("latitude", latitude)
             put("longitude", longitude)
         }

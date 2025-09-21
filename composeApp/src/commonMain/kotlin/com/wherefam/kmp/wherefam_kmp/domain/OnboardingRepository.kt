@@ -10,13 +10,18 @@ import org.koin.core.component.inject
 class OnboardingRepository: KoinComponent {
     private val database: WhereFamDatabase by inject()
 
-    suspend fun upsert(completed: Boolean) {
-        database.onboardingDao().upsert(OnboardingStatus(value = completed))
+    suspend fun upsert(completed: Boolean, username: String) {
+        database.onboardingDao().upsert(OnboardingStatus(value = completed, username = username))
     }
 
     fun getOnboardingStatus(): Flow<Boolean> {
         return database.onboardingDao().getOnboardingStatus().map { status ->
             status ?: false
         }
+    }
+
+    fun getUserName(): Flow<String> {
+        return database.onboardingDao().getUserName()
+            .map { it ?: "" }
     }
 }

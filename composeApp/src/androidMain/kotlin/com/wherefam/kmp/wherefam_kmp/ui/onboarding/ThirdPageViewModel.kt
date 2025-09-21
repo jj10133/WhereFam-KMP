@@ -12,12 +12,13 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wherefam.kmp.wherefam_kmp.data.DataStoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
 
-class ThirdPageViewModel(context: Context, private val prefUtils: DataStoreRepository) : ViewModel() {
+class ThirdPageViewModel(private val context: Context) : ViewModel() {
 
     private val contentResolver = context.contentResolver
     var userImage: ImageBitmap? by mutableStateOf(null)
@@ -26,7 +27,7 @@ class ThirdPageViewModel(context: Context, private val prefUtils: DataStoreRepos
     fun loadImageFromUri(uri: Uri?) {
         if (uri == null) {
             userImage = null
-            viewModelScope.launch { prefUtils.saveUserImage(null) }
+            viewModelScope.launch { saveUserImage(null) }
             return
         }
 
@@ -39,11 +40,27 @@ class ThirdPageViewModel(context: Context, private val prefUtils: DataStoreRepos
                     Log.d("ThirdPageViewModel", "Image loaded from URI and saved")
                 }
 
-                prefUtils.saveUserImage(bitmap)
+                saveUserImage(bitmap)
             } catch (e: Exception) {
                 Log.e("ThirdPageViewModel", "Error loading image from URI: ${e.message}", e)
                 userImage = null
-                viewModelScope.launch { prefUtils.saveUserImage(null) }
+                viewModelScope.launch { saveUserImage(null) }
+            }
+        }
+    }
+
+    private suspend fun saveUserImage(bitmap: Bitmap?) {
+        withContext(Dispatchers.IO) {
+            try {
+                val file = File(context.filesDir, "user_image.jpg")
+                if (bitmap != null) {
+                    FileOutputStream(file).use { out ->
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                    }
+                    Log.d("PrefUtils", "Image saved to internal storage: ${file.absolutePath}")
+                }
+            } catch (e: Exception) {
+                Log.e("PrefUtils", "Error saving image to internal storage: ${e.message}", e)
             }
         }
     }

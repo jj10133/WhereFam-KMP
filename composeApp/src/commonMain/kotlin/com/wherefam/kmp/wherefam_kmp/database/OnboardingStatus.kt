@@ -6,5 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "onboarding_status")
 data class OnboardingStatus(
     @PrimaryKey val key: String = "onboarding_completed",
-    val value: Boolean
+    val value: Boolean,
+    val username: String
 )

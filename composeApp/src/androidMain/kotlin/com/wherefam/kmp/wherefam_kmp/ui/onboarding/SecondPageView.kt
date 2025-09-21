@@ -14,13 +14,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.wherefam.kmp.wherefam_kmp.data.DataStoreRepository
 import kotlinx.coroutines.launch
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun SecondPageView() {
-    val prefUtils: DataStoreRepository = koinInject()
+fun SecondPageView(
+    onboardingViewModel: OnboardingViewModel = koinViewModel(),
+) {
     var userName by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
 
@@ -44,7 +44,7 @@ fun SecondPageView() {
             value = userName,
             onValueChange = { newValue ->
                 userName = newValue
-                scope.launch { prefUtils.saveUserName(newValue) }
+                scope.launch { onboardingViewModel.updateUserName(newValue) }
             },
             placeholder = { Text("Enter your name", color = Color.Gray) },
             modifier = Modifier

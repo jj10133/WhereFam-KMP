@@ -13,4 +13,7 @@ interface OnboardingDao {
 
     @Query("SELECT value FROM onboarding_status")
     fun getOnboardingStatus(): Flow<Boolean?>
+
+    @Query("SELECT username FROM onboarding_status")
+    fun getUserName(): Flow<String?>
 }
