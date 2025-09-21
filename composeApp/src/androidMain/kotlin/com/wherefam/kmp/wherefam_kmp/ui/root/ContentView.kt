@@ -11,12 +11,7 @@ import com.revenuecat.purchases.ui.revenuecatui.PaywallDialog
 import com.revenuecat.purchases.ui.revenuecatui.PaywallDialogOptions
 import com.revenuecat.purchases.ui.revenuecatui.PaywallListener
 import com.wherefam.kmp.wherefam_kmp.ui.home.HomeView
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.FifthPageView
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.FirstPageView
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.FourthPageView
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.OnboardingView
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.SecondPageView
-import com.wherefam.kmp.wherefam_kmp.ui.onboarding.ThirdPageView
+import com.wherefam.kmp.wherefam_kmp.ui.onboarding.*
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,31 +32,31 @@ fun ContentView(navController: NavHostController, startDestination: String) {
         }
 
         composable("Home") {
-            HomeView()
+            HomeView(navController)
         }
 
-//        composable("Paywall") {
-//            PaywallDialog(
-//                paywallDialogOptions = PaywallDialogOptions.Builder()
-//                    .setDismissRequest {
-//                        navController.popBackStack()
-//                    }
-//                    .setListener(
-//                        object : PaywallListener {
-//                            override fun onPurchaseCompleted(
-//                                customerInfo: CustomerInfo,
-//                                storeTransaction: StoreTransaction
-//                            ) {
-//                                super.onPurchaseCompleted(customerInfo, storeTransaction)
-//                            }
-//
-//                            override fun onRestoreCompleted(customerInfo: CustomerInfo) {
-//                                super.onRestoreCompleted(customerInfo)
-//                            }
-//                        }
-//                    )
-//                    .build()
-//            )
-//        }
+        composable("Paywall") {
+            PaywallDialog(
+                paywallDialogOptions = PaywallDialogOptions.Builder()
+                    .setDismissRequest {
+                        navController.popBackStack()
+                    }
+                    .setListener(
+                        object : PaywallListener {
+                            override fun onPurchaseCompleted(
+                                customerInfo: CustomerInfo,
+                                storeTransaction: StoreTransaction
+                            ) {
+                                super.onPurchaseCompleted(customerInfo, storeTransaction)
+                            }
+
+                            override fun onRestoreCompleted(customerInfo: CustomerInfo) {
+                                super.onRestoreCompleted(customerInfo)
+                            }
+                        }
+                    )
+                    .build()
+            )
+        }
     }
 }

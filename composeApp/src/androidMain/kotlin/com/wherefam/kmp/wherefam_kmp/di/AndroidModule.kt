@@ -15,6 +15,6 @@ val androidModule = module {
 val androidViewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { OnboardingViewModel(get()) }
-    viewModel { ThirdPageViewModel(get(), get()) }
+    viewModel { ThirdPageViewModel(get()) }
     viewModel { ShareViewModel(get(), get()) }
 }

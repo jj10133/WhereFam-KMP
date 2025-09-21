@@ -11,14 +11,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.NavHostController
 import com.wherefam.kmp.wherefam_kmp.R
-import com.wherefam.kmp.wherefam_kmp.managers.LocationManager
 import com.wherefam.kmp.wherefam_kmp.managers.LocationTrackerService
 import com.wherefam.kmp.wherefam_kmp.ui.home.people.PeopleView
 import com.wherefam.kmp.wherefam_kmp.ui.home.share.ShareIDView
 import com.wherefam.kmp.wherefam_kmp.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
-import org.koin.compose.koinInject
 import org.maplibre.android.geometry.LatLng
 import org.maplibre.android.location.LocationComponentActivationOptions
 import org.maplibre.android.location.modes.CameraMode
@@ -33,8 +32,8 @@ import org.maplibre.android.style.layers.Property.TEXT_ANCHOR_TOP
 @Composable
 @ExperimentalMaterial3Api
 fun HomeView(
-    homeViewModel: HomeViewModel = koinViewModel(),
-    locationManager: LocationManager = koinInject()
+    navController: NavHostController,
+    homeViewModel: HomeViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
 
@@ -44,6 +43,7 @@ fun HomeView(
     var shouldShareLink by remember { mutableStateOf(false) }
     var shouldRateApp by remember { mutableStateOf(false) }
     var dialogInput by remember { mutableStateOf("") }
+    var shouldShowPaywall by remember { mutableStateOf(false) }
 
     val peers by homeViewModel.peers.collectAsState()
 
@@ -134,7 +134,7 @@ fun HomeView(
                     shouldRateApp = true
                 },
                 onSupportAppSelected = {
-
+                    shouldShowPaywall = true
                 }
             )
         },
@@ -196,6 +196,11 @@ fun HomeView(
             if (shouldRateApp) {
                 RateView()
                 shouldRateApp = false
+            }
+
+            if (shouldShowPaywall) {
+                navController.navigate("Paywall")
+                shouldShowPaywall = false
             }
         }
     }
